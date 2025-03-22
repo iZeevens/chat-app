@@ -1,3 +1,12 @@
+import { Container } from "./ChatPage.styles";
+import { SideBar } from "@widgets/SideBar/Sidebar";
+import { ChatWindow } from "@widgets/ChatWindow/ChatWindow";
+
 export function ChatPage() {
-  return <div>Home Page</div>;
+  return (
+    <Container>
+      <SideBar />
+      <ChatWindow />
+    </Container>
+  );
 }

@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { InputUI } from "@shared/index";
 import { LoginButton } from "../LoginButton/LoginButton";
 import {
-  StyledForm,
-  StyledTitle,
-  StyledContainerInputs,
+  Form,
+  Title,
+  ContainerInputs,
 } from "./LoginForm.styles";
 
 export const LoginForm = () => {
@@ -16,18 +16,18 @@ export const LoginForm = () => {
   const handleLogin = () => {
     if (email && password) {
       localStorage.setItem("user", JSON.stringify({ email }));
-      navigate("/");
+      navigate("/chats");
     }
   };
 
   return (
-    <StyledForm>
-      <StyledTitle>Авторизация</StyledTitle>
-      <StyledContainerInputs>
+    <Form>
+      <Title>Авторизация</Title>
+      <ContainerInputs>
         <InputUI value={email} onChange={(e) => setEmail(e.target.value)} label="E-Mail" placeholder="Ваш E-Mail" />
         <InputUI value={password} onChange={(e) => setPassword(e.target.value)} label="Пароль" placeholder="Ваш пароль" />
         <LoginButton onClick={handleLogin}>Войти</LoginButton>
-      </StyledContainerInputs>
-    </StyledForm>
+      </ContainerInputs>
+    </Form>
   );
 };

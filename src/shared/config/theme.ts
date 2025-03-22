@@ -1,6 +1,7 @@
 export const theme = {
   colors: {
     stroke: "#313E62",
+    strokeSecond: "#616d8d",
     primary: "#1C64F2"
   },
   backgrounds: {
@@ -32,7 +33,7 @@ export const theme = {
     },
 
     lineHeight: {
-      small: "19px",
+      small: "18px",
       regular: "22px",
       bold: "29px",
     }
@@ -51,6 +52,7 @@ export const theme = {
     xs: "4px",
     sm: "8px",
     md: "12px",
-    lg: "18px"
+    lg: "18px",
+    xl: "20px",
   },
 };

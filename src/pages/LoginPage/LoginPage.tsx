@@ -1,5 +1,5 @@
-import { LoginForm } from "@features/auth";
 import { Container } from "@shared/index";
+import { LoginForm } from "@features/auth";
 
 export function LoginPage() {
   return (

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { darken } from "polished";
 
-export const StyledButton = styled.button`
+export const Button = styled.button`
   font-size: ${({ theme }) => theme.typography.fontSize.lg};
   font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
   background-color: ${({ theme }) => theme.backgrounds.button};
