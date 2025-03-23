@@ -12,7 +12,7 @@ export const LoginForm = () => {
   const handleLogin = () => {
     if (name && password) {
       localStorage.setItem("user", JSON.stringify({ name }));
-      navigate("/chats");
+      navigate("/chats", { replace: true });
     }
   };
 

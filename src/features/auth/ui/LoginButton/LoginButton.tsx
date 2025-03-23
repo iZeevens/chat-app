@@ -5,5 +5,5 @@ interface ILoginButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 }
 
 export const LoginButton = ({ children, ...props }: ILoginButtonProps) => {
-  return <Button {...props}>{children}</Button>;
+  return <Button type="button" {...props}>{children}</Button>;
 };
