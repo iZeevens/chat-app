@@ -4,7 +4,7 @@ This is a chat application built as a test task for the Frontend Developer posit
 
 ## Live Demo
 
-🔗 [Deployed Application]()
+🔗 [Deployed Application](https://chat-app-git-develop-izeevens-projects.vercel.app/)
 
 ## Installation
 
