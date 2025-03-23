@@ -7,7 +7,7 @@ export const chatListMiddleware = createListenerMiddleware();
 
 chatListMiddleware.startListening({
   actionCreator: setSearchQuery,
-  effect: async (action, listenerApi) => {
+  effect: async (_, listenerApi) => {
     const state = listenerApi.getState() as RootState;
     listenerApi.dispatch(loadChats(state.chatList.searchQuery));
   },

@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { ButtonUI } from "@shared/index";
-import { darken } from "polished";
 
 export const ChatInputContainer = styled.div`
   width: 100%;
