@@ -8,6 +8,7 @@ export const Container = styled.div`
   height: 100%;
   background-color: ${({theme}) => theme.backgrounds.background};
   border-radius: ${({theme}) => theme.borderRadius.xl};
+  position: relative;
 `
 
 export const Content = styled.div`

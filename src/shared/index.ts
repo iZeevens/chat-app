@@ -1,5 +1,9 @@
 export { GlobalStyles } from "./styles/GlobalStyles";
 export { theme } from "./config/theme";
 export { InputUI } from "./ui/InputUI/InputUI";
+export { ButtonUI } from "./ui/ButtonUI/ButtonUI";
+export { SpinnerLoaderUI } from "./ui/SpinnerLoaderUI/SpinnerLoaderUI";
+export { ToggleButtonUI } from "./ui/ToggleButtonUI/ToggleButtonUI";
+export { ErrorUI } from "./ui/ErrorUI/ErrorUI";
 export { Container } from "./ui/Container/Container";
 export { models } from "./constants/models";

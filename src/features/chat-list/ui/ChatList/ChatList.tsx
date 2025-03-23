@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "@app/store/store";
 import { loadChats } from "@features/chat-list/model/chatListSlice";
 import { ChatListItem } from "../ChatListItem/ChatListItem";
+import { SpinnerLoaderUI, ErrorUI } from "@shared/index";
 
 export const ChatList = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -15,12 +16,13 @@ export const ChatList = () => {
     dispatch(loadChats(""));
   }, [dispatch]);
 
-  if (loading) return <div>Загрузка...</div>;
-  if (error) return <div>Ошибка: {error}</div>;
-
   return (
     <ChatListContainer>
-      {chats.data ? (
+      {loading ? (
+        <SpinnerLoaderUI />
+      ) : error ? (
+        <ErrorUI message={error} />
+      ) : chats.data ? (
         chats.data.map((chat) => (
           <ChatListItem key={chat.id} name={chat.name} id={chat.id} />
         ))

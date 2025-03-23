@@ -2,7 +2,7 @@ import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@app/store/store";
 import {
-  setSelctedChat,
+  setSelectedChat,
   removeChat,
 } from "@features/chat-list/model/chatListSlice";
 import {
@@ -25,7 +25,7 @@ export const ChatListItem = memo(({ name, id }: IChatListItemProps) => {
   );
 
   const handleClick = () => {
-    dispatch(setSelctedChat(id));
+    dispatch(setSelectedChat(id));
   };
 
   const handleDelete = () => {

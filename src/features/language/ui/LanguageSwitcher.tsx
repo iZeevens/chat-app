@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useClickOutside } from "@shared/hooks/useClickOutside";
 import { setLanguage } from "../model/languageSlice";
 import { RootState } from "@app/store/store";
 import {
@@ -17,11 +18,15 @@ export const LanguageSwitcher = () => {
   const currentLanguage = useSelector(
     (state: RootState) => state.language.currentLanguage
   );
+  const dropDownRef = useRef<HTMLDivElement | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleLanguageChange = (language: "ru" | "en") => {
     dispatch(setLanguage(language));
+    setIsOpen(false);
   };
+
+  useClickOutside(dropDownRef, () => setIsOpen(false));
 
   return (
     <Container>
@@ -34,14 +39,16 @@ export const LanguageSwitcher = () => {
           <StyledArowUp onClick={() => setIsOpen(!isOpen)} />
         )}
 
-        <Content $isOpen={isOpen}>
+        <Content $isOpen={isOpen} ref={dropDownRef}>
           <Item
+            variant="outline"
             onClick={() => handleLanguageChange("ru")}
             $isActive={currentLanguage === "ru"}
           >
             RU
           </Item>
           <Item
+            variant="outline"
             onClick={() => handleLanguageChange("en")}
             $isActive={currentLanguage === "en"}
           >

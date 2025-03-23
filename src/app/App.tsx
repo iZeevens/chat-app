@@ -1,6 +1,7 @@
 import { AppRouter } from "./routes/AppRouter";
 import { ThemeProvider } from "styled-components";
 import { StoreProvider } from "./providers/StoreProvider";
+import { SidebarProvider } from "@shared/context/SidebarContext";
 import { GlobalStyles } from "@shared/index";
 import { theme } from "@shared/index";
 import "normalize.css";
@@ -8,11 +9,13 @@ import "normalize.css";
 function App() {
   return (
     <StoreProvider>
-      <ThemeProvider theme={theme}>
-        <GlobalStyles />
+      <SidebarProvider>
+        <ThemeProvider theme={theme}>
+          <GlobalStyles />
 
-        <AppRouter></AppRouter>
-      </ThemeProvider>
+          <AppRouter></AppRouter>
+        </ThemeProvider>
+      </SidebarProvider>
     </StoreProvider>
   );
 }

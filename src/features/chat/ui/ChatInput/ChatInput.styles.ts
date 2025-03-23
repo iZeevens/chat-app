@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ButtonUI } from "@shared/index";
 import { darken } from "polished";
 
 export const ChatInputContainer = styled.div`
@@ -22,22 +23,9 @@ export const StyledChatInput = styled.input`
   }
 `;
 
-export const IconContainer = styled.div`
+export const IconContainer = styled(ButtonUI)`
   position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-  background-color: ${({ theme }) => theme.backgrounds.button};
-  width: 38px;
-  height: 38px;
   right: 20px;
   top: 50%;
   transform: translate(0%, -50%);
-  cursor: pointer;
-  transition: 0.5s ease-in;
-
-  &:hover {
-    background-color: ${({ theme }) => darken(0.3, theme.backgrounds.button)};
-  }
 `

@@ -10,9 +10,12 @@ const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
 };
 
 export function AppRouter() {
+  const user = useAuth();
+
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Navigate to={user ? "/chats" : "/login"} />} />
         <Route path="/login" element={<LoginPage />} />
         <Route
           path="/chats"

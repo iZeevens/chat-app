@@ -1,54 +1,74 @@
-# React + TypeScript + Vite
+# Chat Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a chat application built as a test task for the Frontend Developer position. The application allows users to log in, create and delete chats, send messages to a botls.
 
-Currently, two official plugins are available:
+## Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🔗 [Deployed Application]()
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Clone the repository:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```sh
+git clone https://github.com/iZeevens/chat-app
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Install dependencies:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```sh
+yarn install
+# or
+npm install
+```
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+Build the project:
+
+```sh
+yarn build
+# or
+npm run build
+```
+
+Run the development server:
+
+```sh
+yarn dev
+# or
+npm run dev
+```
+
+## Features
+
+✅ User authentication (localStorage-based)
+✅ Display username
+✅ Logout functionality
+✅ Create & delete chats
+✅ Chat list display
+✅ Chat with a bot
+✅ Responsive design with sidebar toggle
+✅ API integration for chat messages
+
+## Technologies Used
+
+- React
+- React Router
+- TypeScript
+- Styled Components
+- Redux
+- Axios
+- API integration with [BothubQ](https://bothubq.com/api/v2/swagger/#/)
+
+## Authentication
+
+Authorization token is required in headers:
+
+```sh
+Authorization: Bearer YOUR_TOKEN
+```
+
+Use the `.env` file to configure your API key:
+
+```sh
+VITE_AUTH_API_TOKEN=YOUR_API_KEY
 ```

@@ -1,6 +1,7 @@
 import { styled, keyframes } from "styled-components";
 import ArrowDropDown from "@assets/arrow-down.svg?react";
 import ArrowDropUp from "@assets/arrow-up.svg?react";
+import { ButtonUI } from "@shared/index";
 
 export const Container = styled.div`
   display: flex;
@@ -43,12 +44,10 @@ export const Content = styled.div<{ $isOpen: boolean }>`
   animation: ${fadeIn} 0.5s ease-out forwards;
 `;
 
-export const Item = styled.div<{ $isActive: boolean }>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+export const Item = styled(ButtonUI)<{ $isActive: boolean }>`
   height: 100%;
   width: 100%;
+  border: none;
   border-radius: ${({ theme }) => theme.borderRadius.sm};
   background-color: ${({ theme, $isActive }) =>
     $isActive ? theme.colors.stroke : ""};

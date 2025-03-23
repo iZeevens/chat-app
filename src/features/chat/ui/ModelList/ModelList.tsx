@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useRef, memo } from "react";
+import { useClickOutside } from "@shared/hooks/useClickOutside";
 import {
   ModelListContainer,
   ModelListSelectedContent,
@@ -11,18 +12,22 @@ import ArrowUpIcon from "@assets/arrow-up.svg?react";
 import ArrowDownIcon from "@assets/arrow-down.svg?react";
 import { models } from "@shared/index";
 
-export const ModelList = () => {
+export const ModelList = memo(() => {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<number>(0);
+  const dropDownRef = useRef<HTMLDivElement | null>(null);
 
   const handleChangeModel = (index: number) => {
     if (index === selected) return;
 
     setSelected(index);
+    setIsOpen(false);
   };
 
+  useClickOutside(dropDownRef, () => setIsOpen(false));
+
   return (
-    <ModelListContainer>
+    <ModelListContainer ref={dropDownRef}>
       <ModelListSelectedContent onClick={() => setIsOpen((prev) => !prev)}>
         {models[selected].element}
         <ModelListSelected>{models[selected].name}</ModelListSelected>
@@ -44,4 +49,4 @@ export const ModelList = () => {
       )}
     </ModelListContainer>
   );
-};
+});

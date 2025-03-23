@@ -1,10 +1,11 @@
 export interface Message {
-  id?: string;
+  id: string;
   role: "user" | "assistant";
   content: string;
   created_at: string;
-  chat_id?: string;
-  model?: Model;
+  chat_id: string;
+  model: Model;
+  model_id: string;
 }
 
 export interface Model {

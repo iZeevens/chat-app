@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { copyToClipboard } from "@features/lib/copyClipboard";
 import {
   UserMessageContainer,
@@ -13,7 +14,7 @@ interface IUserMessageProps {
   createdAt: string;
 }
 
-export const UserMessage = ({ content, createdAt }: IUserMessageProps) => {
+export const UserMessage = memo(({ content, createdAt }: IUserMessageProps) => {
   return (
     <UserMessageContainer>
       <Copy onClick={() => copyToClipboard(content)} />
@@ -29,4 +30,4 @@ export const UserMessage = ({ content, createdAt }: IUserMessageProps) => {
       <Avatar />
     </UserMessageContainer>
   );
-};
+});

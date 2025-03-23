@@ -1,4 +1,5 @@
-import styled, { css, keyframes } from "styled-components";
+import styled, { keyframes } from "styled-components";
+import { ButtonUI } from "@shared/index";
 
 const expand = keyframes`
   from {
@@ -24,20 +25,9 @@ export const SearchContainer = styled.div`
   gap: 8px;
 `;
 
-export const Button = styled.button<{ $isOpen: boolean }>`
-  min-width: 38px;
+export const StyledButton = styled(ButtonUI)`
   min-height: 38px;
-  border: 1px solid ${({ theme }) => theme.colors.stroke};
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-  background-color: inherit;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-
-  ${({ $isOpen }) =>
-    $isOpen &&
-    css`
-      background-color: ${({ theme }) => theme.colors.stroke};
-    `}
+  min-width: 38px;
 `;
 
 export const SearchInput = styled.input<{ $isOpen: boolean }>`

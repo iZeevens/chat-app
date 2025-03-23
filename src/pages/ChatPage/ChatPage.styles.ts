@@ -10,4 +10,12 @@ export const Container = styled.div`
   height: 100%;
   padding: ${({ theme }) => theme.spacing.md};
   background-color: ${({theme}) => theme.backgrounds.main};
+  position: relative;
+`;
+
+export const ToggleButtonWrapper = styled.div`
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1000;
 `;

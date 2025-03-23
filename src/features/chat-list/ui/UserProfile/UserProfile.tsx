@@ -12,7 +12,7 @@ import { useAuth } from "@features/auth";
 
 export const UserProfile = () => {
   const naviagte = useNavigate();
-  const { email } = useAuth();
+  const { name } = useAuth();
 
   const handleExit = () => {
     localStorage.clear();
@@ -24,7 +24,7 @@ export const UserProfile = () => {
       <UserProfileContent>
         <ProfilePic />
         <NameContainer>
-          <Name>{email}</Name>
+          <Name>{name}</Name>
           <Tokens>9012 TKN</Tokens>
         </NameContainer>
       </UserProfileContent>

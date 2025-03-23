@@ -1,33 +1,24 @@
-import { Container, Content, Messages, Actions } from "./ChatWindow.styles";
-import { ChatInput, ModelList, UserMessage, BotMessage } from "@features/chat";
-import { useChatMessages } from "@features/chat/hooks/useChat";
+import { Container, Content, Actions } from "./ChatWindow.styles";
+import { ChatInput, ModelList } from "@features/chat";
+import { useSidebar } from "@shared/hooks/useSideBar";
+import { ToggleButtonUI } from "@shared/index";
+import { MessagesList } from "@features/chat";
 
 export const ChatWindow = () => {
-  const { sortedMessages, loading, error, currentChatId } = useChatMessages();
+  const { toggleSidebar, isSidebarOpen } = useSidebar();
 
   return (
     <Container>
+      {!isSidebarOpen && (
+        <ToggleButtonUI
+          onClick={toggleSidebar}
+          isOpen={isSidebarOpen}
+          position="left"
+        />
+      )}
+
       <Content>
-        <Messages>
-          {sortedMessages ?
-            sortedMessages.map((message) =>
-              message.role === "assistant" ? (
-                <BotMessage
-                  key={message.id}
-                  modelName={message.model.parent.label}
-                  modelLabel={message.model.label}
-                  content={message.content}
-                  createdAt={message.created_at}
-                />
-              ) : (
-                <UserMessage
-                  key={message.id}
-                  content={message.content}
-                  createdAt={message.created_at}
-                />
-              )
-            ) : <span>Нет Сообщений</span>}
-        </Messages>
+        <MessagesList />
         <Actions>
           <ModelList />
           <ChatInput />

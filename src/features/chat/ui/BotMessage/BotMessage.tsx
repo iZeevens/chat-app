@@ -1,3 +1,4 @@
+import { memo } from "react";
 import {
   MessageContainer,
   Header,
@@ -21,7 +22,7 @@ interface IBotMessageProps {
   createdAt: string;
 }
 
-export const BotMessage = ({
+export const BotMessage = memo(({
   modelName,
   modelLabel,
   content,
@@ -52,4 +53,4 @@ export const BotMessage = ({
       </Footer>
     </MessageContainer>
   );
-};
+});

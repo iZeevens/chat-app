@@ -19,41 +19,59 @@ export const sendMessageApi = async (chatId: string, message: string) => {
 
 export const subscribeToChatStream = (
   chatId: string,
-  onMessage: (message: ChatMessagesResponse) => void
+  onMessage: (message: Message) => void
 ) => {
-  const eventSource = new EventSourcePolyfill(
-    `https://bothubq.com/api/v2/chat/${chatId}/stream`,
-    {
-      headers: {
-        Authorization: `Bearer ${import.meta.env.VITE_AUTH_API_TOKEN}`,
-      },
-    }
-  );
+  let eventSource: EventSourcePolyfill | null = null;
+  let reconnectAttempts = 0;
+  const maxReconnectAttempts = 5;
+  const initialReconnectDelay = 1000;
+  const maxReconnectDelay = 30000;
 
-  eventSource.onmessage = (event) => {
-    const message: ChatMessagesResponse = JSON.parse(event.data);
-    onMessage(message);
-    console.log(message)
+  const connect = () => {
+    eventSource = new EventSourcePolyfill(
+      `https://bothubq.com/api/v2/chat/${chatId}/stream`,
+      {
+        headers: {
+          Authorization: `Bearer ${import.meta.env.VITE_AUTH_API_TOKEN}`,
+        },
+      }
+    );
+
+    eventSource.onmessage = (event) => {
+      const parsedData = JSON.parse(event.data);
+
+      if (
+        parsedData.name === "MESSAGE_UPDATE" ||
+        parsedData.name === "MESSAGE_CREATE"
+      ) {
+        const message = parsedData.data.message;
+        onMessage(message);
+      }
+    };
+
+    eventSource.onerror = () => {
+      eventSource?.close();
+      
+      if (reconnectAttempts < maxReconnectAttempts) {
+        reconnectAttempts++;
+        const delay = Math.min(
+          initialReconnectDelay * Math.pow(2, reconnectAttempts),
+          maxReconnectDelay
+        );
+        setTimeout(connect, delay);
+      } else {
+        console.error(
+          "Превышено максимальное количество попыток переподключения."
+        );
+      }
+    };
   };
 
-  eventSource.onerror = () => {
-    eventSource.close();
-  };
+  connect();
 
-  return eventSource;
+  return {
+    close: () => {
+      eventSource?.close();
+    },
+  };
 };
-
-// export const fetchModels = async (parentId: string) => {
-//   const response = await api.get(`/model/list`, {
-//     params: { parentId },
-//   });
-//   return response.data;
-// };
-
-// export const updateChat = async (
-//   chatId: string,
-//   data: { name?: string; modelId?: string }
-// ) => {
-//   const response = await api.patch(`/chat/${chatId}`, data);
-//   return response.data;
-// };

@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@app/store/store";
 import { createChat } from "@features/chat-list/model/chatListSlice";
-import { AddButton } from "./AddChat.styles";
+import { ButtonUI } from "@shared/ui/ButtonUI/ButtonUI";
 import AddButtonIcon from "@assets/add-chat.svg?react";
 
 export const AddChat = () => {
@@ -12,8 +12,8 @@ export const AddChat = () => {
   };
 
   return (
-    <AddButton onClick={handleAddChat}>
+    <ButtonUI onClick={handleAddChat}>
       <AddButtonIcon />
-    </AddButton>
+    </ButtonUI>
   );
 };

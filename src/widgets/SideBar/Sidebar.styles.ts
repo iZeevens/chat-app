@@ -10,6 +10,7 @@ export const SidebarContainer = styled.aside`
   background-color: ${({ theme }) => theme.backgrounds.background};
   border-radius: ${({ theme }) => theme.borderRadius.xl};
   padding: ${({ theme }) => theme.spacing.xl} ${({ theme }) => theme.spacing.lg};
+  position: relative;
 `;
 
 export const Header = styled.div`

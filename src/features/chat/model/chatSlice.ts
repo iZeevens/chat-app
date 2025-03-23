@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { fetchChatMessages, sendMessageApi } from "../api/chatApi";
 import { Message, Model } from "./type";
-import { setSelctedChat } from "@features/chat-list/model/chatListSlice";
+import { setSelectedChat } from "@features/chat-list/model/chatListSlice";
 
 interface ChatState {
   messages: Message[];
@@ -38,12 +38,19 @@ const chatSlice = createSlice({
   initialState,
   reducers: {
     addMessage: (state, action: PayloadAction<Message>) => {
-      state.messages.push(action.payload);
+      const index = state.messages.findIndex(
+        (msg) => msg.id === action.payload.id
+      );
+      if (index !== -1) {
+        state.messages[index].content = action.payload.content;
+      } else {
+        state.messages.push(action.payload);
+      }
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(setSelctedChat, (state, action) => {
+      .addCase(setSelectedChat, (state, action) => {
         if (action.payload) {
           state.messages = [];
           state.loading = true;
@@ -63,16 +70,7 @@ const chatSlice = createSlice({
       .addCase(loadChatMessages.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Ошибка загрузки сообщений";
-      })
-    // .addCase(loadModels.fulfilled, (state, action) => {
-    //   state.models = action.payload;
-    // })
-    // .addCase(updateChat.fulfilled, (state, action) => {
-    //   // Обновляем текущий чат, если он выбран
-    //   if (state.currentChatId === action.payload.id) {
-    //     state.messages = action.payload.messages || state.messages;
-    //   }
-    // });
+      });
   },
 });
 

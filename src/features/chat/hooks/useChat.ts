@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "@app/store/store";
-import { loadChatMessages } from "@features/chat/model/chatSlice";
+import { loadChatMessages, addMessage } from "@features/chat/model/chatSlice";
+import { subscribeToChatStream } from "../api/chatApi";
 
 export const useChatMessages = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -16,6 +17,18 @@ export const useChatMessages = () => {
     if (currentChatId) {
       dispatch(loadChatMessages(currentChatId));
     }
+  }, [currentChatId, dispatch]);
+
+  useEffect(() => {
+    if (!currentChatId) return;
+
+    const eventSource = subscribeToChatStream(currentChatId, (message) => {
+      dispatch(addMessage(message));
+    });
+
+    return () => {
+      eventSource.close();
+    };
   }, [currentChatId, dispatch]);
 
   const sortedMessages = [...messages].sort((a, b) => {

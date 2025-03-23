@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "@app/store/store";
-import { addMessage, sendMessage } from "@features/chat/model/chatSlice";
+import { sendMessage } from "@features/chat/model/chatSlice";
 import {
   ChatInputContainer,
   StyledChatInput,
   IconContainer,
 } from "./ChatInput.styles";
+
 import IconSend from "@assets/send.svg?react";
 
 export const ChatInput = () => {
@@ -20,15 +21,6 @@ export const ChatInput = () => {
     if (!currentChatId || !query.trim()) return;
 
     dispatch(sendMessage({ chatId: currentChatId, message: query }));
-    dispatch(
-      addMessage({
-        id: Date.now().toString(),
-        chat_id: currentChatId,
-        role: "user",
-        content: query,
-        created_at: new Date().toISOString(),
-      })
-    );
     setQuery("");
   };
 
@@ -37,10 +29,11 @@ export const ChatInput = () => {
       <StyledChatInput
         placeholder="Спроси о чем-нибудь..."
         onChange={(e) => setQuery(e.currentTarget.value)}
+        onKeyDown={(e) => (e.key === "Enter" ? handleSendMsg() : "")}
+        value={query}
       />
       <IconContainer
         onClick={handleSendMsg}
-        onKeyDown={(e) => (e.key === "Enter" ? handleSendMsg() : "")}
       >
         <IconSend />
       </IconContainer>

@@ -13,10 +13,13 @@ const initialState: ChatListState = {
   error: null,
 };
 
-export const loadChats = createAsyncThunk("chatList/loadChats", async (search: string) => {
-  const response = await fetchChats(search);
-  return response;
-});
+export const loadChats = createAsyncThunk(
+  "chatList/loadChats",
+  async (search: string) => {
+    const response = await fetchChats(search);
+    return response;
+  }
+);
 
 export const createChat = createAsyncThunk(
   "chatList/createChat",
@@ -41,7 +44,7 @@ const chatListSlice = createSlice({
     setSearchQuery(state, action: PayloadAction<string>) {
       state.searchQuery = action.payload;
     },
-    setSelctedChat(state, action: PayloadAction<string | null>) {
+    setSelectedChat(state, action: PayloadAction<string | null>) {
       state.selectedChatId = action.payload;
     },
   },
@@ -52,8 +55,11 @@ const chatListSlice = createSlice({
         state.error = null;
       })
       .addCase(loadChats.fulfilled, (state, action) => {
-        state.chats.data = action.payload.data;
-        state.chats.pages = action.payload.pages;
+        if (state.chats.data !== action.payload.data) {
+          state.chats.data = action.payload.data;
+          state.chats.pages = action.payload.pages;
+        }
+
         state.loading = false;
       })
       .addCase(loadChats.rejected, (state, action) => {
@@ -67,9 +73,10 @@ const chatListSlice = createSlice({
         state.chats.data = state.chats.data.filter(
           (item) => item.id !== action.meta.arg
         );
+        state.selectedChatId = null;
       });
   },
 });
 
-export const { setSearchQuery, setSelctedChat } = chatListSlice.actions;
+export const { setSearchQuery, setSelectedChat } = chatListSlice.actions;
 export default chatListSlice.reducer;
